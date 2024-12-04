@@ -1,0 +1,57 @@
+###
+# @name admin_jwt_login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@user.com",
+    "passowrd": "secret"
+}
+
+###
+@jwt = {{ admin_jwt_login.response.body.access_token }}
+
+###
+GET http://localhost:3000/admin/products
+Authorization: Bearer {{ jwt }}
+
+###
+# @name createProduct
+POST http://localhost:3000/admin/products
+Content-Type: application/json
+Authorization: Bearer {{ jwt }}
+
+{
+
+}
+
+###
+
+@productId = {{ createProduct.response.body.id }}
+
+###
+GET http://localhost:3000/admin/products/{{ productId }}
+
+###
+# @name updateProduct
+PATCH http://localhost:3000/admin/products/{{ productId }}
+Content-Type: application/json
+
+{
+    "name": "Product 2",
+    "slug": "product-364732",
+    "description": "Product 2 description",
+    "price": 5.12
+}
+
+###
+# @name deleteProduct
+DELETE http://localhost:3000/admin/products/{{ productId }}
+
+
+### OPEN PRODUCTS
+###
+GET http://localhost:3000/products?name=product
+
+###
+GET http://localhost:3000/products/product-3
