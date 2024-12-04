@@ -52,6 +52,3 @@ DELETE http://localhost:3000/admin/products/{{ productId }}
 ### OPEN PRODUCTS
 ###
 GET http://localhost:3000/products?name=product
-
-###
-GET http://localhost:3000/products/product-3
